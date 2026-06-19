@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feynman Cards — {{TOPIC}}</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, "PingFang SC", "Helvetica Neue", "Noto Sans SC", sans-serif;
+    background: #0F0F1A;
+    color: #2D3436;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+    color: #DFE6E9;
+  }
+
+  .header h1 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+  }
+
+  .header .subtitle {
+    font-size: 14px;
+    opacity: 0.5;
+    letter-spacing: 2px;
+  }
+
+  .cards {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .card {
+    border-radius: 16px;
+    padding: 36px 40px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+  }
+
+  .card:hover { transform: translateY(-2px); }
+
+  .card-number {
+    position: absolute;
+    top: 16px;
+    right: 24px;
+    font-size: 64px;
+    font-weight: 800;
+    opacity: 0.08;
+    line-height: 1;
+    color: #2D3436;
+  }
+
+  .card-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0.5;
+  }
+
+  .card-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .card-body {
+    font-size: 15px;
+    line-height: 1.85;
+  }
+
+  .card-body p { margin-bottom: 12px; }
+  .card-body p:last-child { margin-bottom: 0; }
+  .card-body ul, .card-body ol { padding-left: 20px; margin-bottom: 12px; }
+  .card-body li { margin-bottom: 6px; }
+  .card-body strong { font-weight: 600; }
+  .card-body em { font-style: italic; opacity: 0.8; }
+  .card-body code {
+    background: rgba(0,0,0,0.06);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: "SF Mono", "Fira Code", monospace;
+  }
+  .card-body blockquote {
+    border-left: 3px solid rgba(0,0,0,0.15);
+    padding-left: 16px;
+    margin: 12px 0;
+    opacity: 0.8;
+    font-style: italic;
+  }
+
+  /* Card 1 — 启蒙 (warm peach) */
+  .card-1 {
+    background: linear-gradient(135deg, #FFF3E0 0%, #FFEAA7 100%);
+  }
+  .card-1 .card-body { font-size: 17px; }
+
+  /* Card 2 — 入门 (mint) */
+  .card-2 {
+    background: linear-gradient(135deg, #E8F8F5 0%, #55EFC4 100%);
+  }
+
+  /* Card 3 — 进阶 (sky blue) */
+  .card-3 {
+    background: linear-gradient(135deg, #E3F2FD 0%, #74B9FF 100%);
+  }
+
+  /* Card 4 — 精通 (lavender) */
+  .card-4 {
+    background: linear-gradient(135deg, #EDE7F6 0%, #A29BFE 100%);
+  }
+
+  /* Card 5 — 未知 (gray, dashed) */
+  .card-5 {
+    background: linear-gradient(135deg, #F5F6FA 0%, #DFE6E9 100%);
+    border: 2px dashed #B2BEC3;
+  }
+  .card-5 .card-title { opacity: 0.7; }
+
+  /* Card 6 — 图谱 (rose gold) */
+  .card-6 {
+    background: linear-gradient(135deg, #FDEBD0 0%, #FAB1A0 100%);
+  }
+
+  .concept-map {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .concept-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .concept-node {
+    background: rgba(0,0,0,0.08);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .concept-arrow {
+    opacity: 0.3;
+    font-size: 16px;
+  }
+
+  .concept-desc {
+    opacity: 0.6;
+    font-size: 13px;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    color: #636E72;
+    font-size: 12px;
+    letter-spacing: 1px;
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>{{TOPIC}}</h1>
+  <div class="subtitle">FEYNMAN LEARNING CARDS · {{DATE}}</div>
+</div>
+
+<div class="cards">
+
+  <!-- Card 1: 启蒙 -->
+  <div class="card card-1">
+    <div class="card-number">1</div>
+    <div class="card-label">LEVEL 1 · 启蒙</div>
+    <div class="card-title">给 6 岁小孩讲</div>
+    <div class="card-body">
+      {{CONTENT_1}}
+    </div>
+  </div>
+
+  <!-- Card 2: 入门 -->
+  <div class="card card-2">
+    <div class="card-number">2</div>
+    <div class="card-label">LEVEL 2 · 入门</div>
+    <div class="card-title">给初中生讲</div>
+    <div class="card-body">
+      {{CONTENT_2}}
+    </div>
+  </div>
+
+  <!-- Card 3: 进阶 -->
+  <div class="card card-3">
+    <div class="card-number">3</div>
+    <div class="card-label">LEVEL 3 · 进阶</div>
+    <div class="card-title">给大学生讲</div>
+    <div class="card-body">
+      {{CONTENT_3}}
+    </div>
+  </div>
+
+  <!-- Card 4: 精通 -->
+  <div class="card card-4">
+    <div class="card-number">4</div>
+    <div class="card-label">LEVEL 4 · 精通</div>
+    <div class="card-title">给同行讲</div>
+    <div class="card-body">
+      {{CONTENT_4}}
+    </div>
+  </div>
+
+  <!-- Card 5: 未知 -->
+  <div class="card card-5">
+    <div class="card-number">5</div>
+    <div class="card-label">LEVEL 5 · 未知</div>
+    <div class="card-title">我还不懂……</div>
+    <div class="card-body">
+      {{CONTENT_5}}
+    </div>
+  </div>
+
+  <!-- Card 6: 图谱 -->
+  <div class="card card-6">
+    <div class="card-number">6</div>
+    <div class="card-label">LEVEL 6 · 图谱</div>
+    <div class="card-title">概念地图</div>
+    <div class="card-body">
+      {{CONTENT_6}}
+      <div class="concept-map">
+        {{RELATIONS}}
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  "If you can't explain it simply, you don't understand it well enough." — Richard Feynman
+</div>
+
+</body>
+</html>
